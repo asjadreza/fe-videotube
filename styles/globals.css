@@ -10,3 +10,10 @@ body {
 .dark body {
   @apply bg-gray-900 text-white;
 }
+
+.input-no-autofill:-webkit-autofill {
+  background-color: transparent !important;
+  color: inherit !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
