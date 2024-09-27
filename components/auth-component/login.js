@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { AuthService } from "@/services/auth-service"; // Assuming you have AuthService set up for login
+import { AuthService } from "@/services/auth-service";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -21,35 +22,24 @@ const Login = () => {
     });
   };
 
-  // Submit handler for login
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await AuthService.login(formData); // Using login function from AuthService
-  //     setSuccess("Login successful");
-  //     setError("");
-
-  //     // Redirect after successful login
-  //     router.push("/videos"); 
-  //     console.log(response);
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || "Error logging in");
-  //     setSuccess("");
-  //   }
-  // };
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await AuthService.login(formData); // Using login function from AuthService
+      const response = await AuthService.login(formData);
+      const { accessToken, user } = response.data;
 
-      console.log(response);
-      // Store the token in localStorage
-      localStorage.setItem("token", response.data.accessToken); // Assuming the token is in response.token
+      // Store the token and user info in localStorage
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Cookies.set("token", accessToken);
+      Cookies.set("accessToken", accessToken);
+
       setSuccess("Login successful");
       setError("");
+
+      window.dispatchEvent(new Event("storage"));
 
       // Redirect after successful login
       router.push("/videos");

@@ -1,14 +1,14 @@
 import "@/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "@/context/ThemeContext";
-import Layout from "@/components/layout";
+import Header from "@/components/header";
 
 export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider>
-      <Layout>
+      <Header>
         <Component {...pageProps} />
-      </Layout>
+      </Header>
     </ThemeProvider>
   );
 }
