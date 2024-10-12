@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { VideoService } from "@/services/video-service";
-import jwtDecode from "jwt-decode";
 
 const DisplayAllVideos = () => {
   const [videos, setVideos] = useState([]);
@@ -10,15 +9,13 @@ const DisplayAllVideos = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        // Get token from localStorage or your auth state
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("accessToken");
+        console.log(token);
 
         if (!token) {
           setError("User is not authenticated.");
           return;
         }
-
-        // Call the VideoService to get all videos with the token
         const response = await VideoService.getAllVideos(token);
         setVideos(response.data.videos);
       } catch (err) {

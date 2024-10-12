@@ -12,12 +12,19 @@ const UserModal = ({ isOpen, onClose, user, onLogout, accessToken }) => {
   const handleLogout = async () => {
     try {
       const response = await AuthService.logout(accessToken);
-      Cookies.remove("token");
+      localStorage.removeItem("accessToken");
+      Cookies.remove("accessToken");
       onLogout();
       router.push("/login");
     } catch (error) {
       console.error("Logout failed", error);
     }
+  };
+
+  const goToChannelProfile = () => {
+    // Navigate to the user's channel profile page using their username
+    router.push(`/channel/${user.username}`);
+    onClose();
   };
 
   return (
@@ -52,8 +59,9 @@ const UserModal = ({ isOpen, onClose, user, onLogout, accessToken }) => {
             </div>
             <div className="mt-2">
               <a
-                href="#"
-                className="text-blue-600 dark:text-blue-400 text-sm font-semibold"
+                onClick={goToChannelProfile}
+                className="text-blue-600 dark:text-blue-400 text-sm font-semibold cursor-pointer"
+                style={{ textDecoration: "none" }}
               >
                 View your channel
               </a>

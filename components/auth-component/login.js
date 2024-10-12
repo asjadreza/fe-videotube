@@ -28,21 +28,14 @@ const Login = () => {
     try {
       const response = await AuthService.login(formData);
       const { accessToken, user } = response.data;
-
-      // Store the token and user info in localStorage
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
-
-      // Cookies.set("token", accessToken);
       Cookies.set("accessToken", accessToken);
-
+      console.log(accessToken)
       setSuccess("Login successful");
       setError("");
-
       window.dispatchEvent(new Event("storage"));
-
-      // Redirect after successful login
-      router.push("/videos");
+      router.push("/");
     } catch (err) {
       setError(err.response?.data?.message || "Error logging in");
       setSuccess("");

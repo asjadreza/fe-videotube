@@ -6,3 +6,6 @@ export const LOGOUT_URL = `${API_BASE_URL}/api/v1/users/logout`;
 
 // videos
 export const GET_ALL_VIDEOS = `${API_BASE_URL}/api/v1/videos/`;
+
+// user's channel 
+export const GET_CHANNEL_PROFILE = `${API_BASE_URL}/api/v1/users/channel`;

@@ -50,6 +50,8 @@ const Header = ({ children }) => {
 
   const handleLogout = () => {
     setUser(null);
+    Cookies.remove("accessToken"); 
+    localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
     setIsModalOpen(false);
   };
